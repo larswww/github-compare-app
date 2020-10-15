@@ -6,8 +6,8 @@ export default class View {
         console.log('view created')
     }
 
-    showUser(user) { 
-        main.textContent = JSON.stringify(user)
+    addGithubUser(user, repos) { 
+        main.textContent = JSON.stringify(user) + JSON.stringify(repos)
 
     }
 

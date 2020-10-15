@@ -12,9 +12,22 @@ export default class Controller {
     async search() {
         console.log('user clicked search')
         // getUsername
-        const username = 'larswww'
-        const githubUser = await this.model.getGithubUser(username)
-        this.view.showUser(githubUser)
+        const username = 'eriobe'
+        console.time('fetch github data')
+        try {
+            // this.view.showLoadingSpinner()
+            const getUser = this.model.getGithubUser(username)
+            const getRepos = this.model.getUserGithubRepos(username)
+            const promises = [getUser, getRepos]
+            const [user, repos] = await Promise.all(promises)
+            console.timeEnd('fetch github data')
+            // this.view.stopLoadingSpinner()
+            this.view.addGithubUser(user, repos)
+        } catch (error) {
+            // if (error.status === 404) // this.view.showNotFoundError()
+            // if (error.status > 500) // this.view.showGithubDownError()
+        }
+        
     }
 
 
